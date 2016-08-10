@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,7 +9,13 @@
     <h1>Find Game</h1>
     <br><br>
 
-    <%--ADD SCRIPT HERE--%>
+
+    <form name="findGameForm" method="POST" action="/games/viewGamesSearch">
+        Find Game
+        <input type="text" name="searchStr">
+        <input type="submit">
+    </form>
+
 
     <br><br>
     <a href="/">HOME</a>

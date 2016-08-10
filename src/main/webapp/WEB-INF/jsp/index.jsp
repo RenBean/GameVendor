@@ -11,7 +11,7 @@
     <br>
     <a href="/categories/viewAllCategories">View All Categories</a>
     <br>
-    <a href="">View All Game Vendors</a>
+    <a href="/vendors/viewAllVendors">View All Game Vendors</a>
     <br><br>
     <hr>
     <a href="/games/addGame">Add New Game</a>

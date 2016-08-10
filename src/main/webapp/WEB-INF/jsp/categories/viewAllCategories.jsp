@@ -13,14 +13,14 @@
         <th>Category Id</th>
         <th>Category Title</th>
         <th>Category Description</th>
-        <%--ADD SCRIPT HERE--%>
+        <th>View Games In This Category</th>
     </tr>
     <c:forEach items="${categories}" var="category">
         <tr>
             <td><a href="/categories/viewCategory?categoryId=${category.categoryId}"><c:out value="${category.categoryId}" /></a></td>
             <td><c:out value="${category.categoryTitle}" /></td>
             <td><c:out value="${category.categoryDescription}" /></td>
-            <%--ADD SCRIPT HERE--%>
+            <td><a href="/games/viewGamesInCategory?categoryId=${category.categoryId}">View Games</a></td>
         </tr>
     </c:forEach>
 </table>

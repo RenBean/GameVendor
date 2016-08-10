@@ -22,11 +22,32 @@ public class GameController {
     @Autowired
     private CategoryDAO categoryDAO;
 
+    @Autowired
+    private VendorDAO vendorDAO;
+
     @RequestMapping(value="viewAllGames")
     public String viewAllGames(ModelMap model) {
         model.addAttribute("games",gameDAO.findAll());
         return "games/viewAllGames";
     }
+
+    @RequestMapping(value="viewGamesInCategory")
+    public String viewGamesInCategory(Long categoryId, ModelMap model) {
+        model.addAttribute("games",gameDAO.findByCategoryId(categoryId));
+        return "games/viewAllGames";
+    }
+    @RequestMapping(value="viewGamesInVendor")
+    public String viewGamesInVendor(Long vendorId, ModelMap model) {
+        model.addAttribute("games",gameDAO.findByVendorId(vendorId));
+        return "games/viewAllGames";
+    }
+
+    @RequestMapping(value="viewGamesSearch")
+    public String viewGamesSearch(String searchStr, ModelMap model) {
+        model.addAttribute("games",gameDAO.findByNameStartsWith(searchStr));
+        return "games/viewAllGames";
+    }
+
 
     @RequestMapping(value="findGame")
     public String findGame() {
@@ -36,6 +57,10 @@ public class GameController {
     @RequestMapping(value="viewGame")
     public String viewGame(Long gameId, ModelMap model) {
         Game game = gameDAO.findOne(gameId);
+        Category category = categoryDAO.findOne(game.getCategoryId());
+        Vendor vendor = vendorDAO.findOne(game.getVendorId());
+        model.addAttribute("category",category);
+        model.addAttribute("vendor",vendor);
         model.addAttribute("game",game);
         return "games/viewGame";
     }
@@ -59,6 +84,7 @@ public class GameController {
         return "redirect:/games/viewAllGames";
     }
 
+
     private Map<String, String> getCategoryIdsAndNames() {
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
         hashMap.put("-1","-- None --");
@@ -71,6 +97,9 @@ public class GameController {
     private Map<String, String> getVendorIdsAndNames() {
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
         hashMap.put("-1","-- None --");
+        for(Vendor vendor : vendorDAO.findAll()) {
+            hashMap.put(vendor.getVendorId()+"",vendor.getVendorName());
+        }
         // TODO: loop through vendors here...
         return hashMap;
     }
